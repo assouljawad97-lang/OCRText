@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OCR Desktop</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="header">
+        <h1>OCR Desktop</h1>
+        <p>Extract text from images with preprocessing, auto-analysis, and multilingual OCR.</p>
+      </header>
+
+      <main class="grid">
+        <section class="panel upload-panel">
+          <h2>Input</h2>
+          <div id="dropzone" class="dropzone" tabindex="0" aria-label="Image drop zone">
+            <p><strong>Drag & drop image(s)</strong> here</p>
+            <p>or</p>
+            <button id="selectBtn" class="btn">Select Image(s)</button>
+            <small>Supports JPG, JPEG, PNG, BMP, HEIC/HEIF (when codec is available).</small>
+          </div>
+
+          <div class="language-picker">
+            <h3>OCR Languages</h3>
+            <label><input type="checkbox" value="eng" checked /> English</label>
+            <label><input type="checkbox" value="spa" /> Spanish</label>
+            <label><input type="checkbox" value="fra" /> French</label>
+            <label><input type="checkbox" value="ara" /> Arabic</label>
+          </div>
+
+          <div class="actions">
+            <button id="extractBtn" class="btn primary" disabled>Extract Text</button>
+            <button id="clearBtn" class="btn ghost">Clear</button>
+          </div>
+
+          <div id="status" class="status">Select one or more images to begin.</div>
+        </section>
+
+        <section class="panel preview-panel">
+          <h2>Preview</h2>
+          <div id="previewList" class="preview-list"></div>
+        </section>
+
+        <section class="panel output-panel">
+          <div class="output-header">
+            <h2>Extracted Text</h2>
+            <div class="output-actions">
+              <button id="copyBtn" class="btn" disabled>Copy</button>
+              <button id="saveBtn" class="btn" disabled>Save .txt</button>
+            </div>
+          </div>
+          <textarea id="outputText" readonly placeholder="OCR result appears here..."></textarea>
+        </section>
+      </main>
+    </div>
+
+    <template id="previewItemTemplate">
+      <article class="preview-item">
+        <img alt="Selected preview" />
+        <div class="preview-meta">
+          <p class="filename"></p>
+          <p class="doc-type"></p>
+          <p class="confidence"></p>
+        </div>
+      </article>
+    </template>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>
