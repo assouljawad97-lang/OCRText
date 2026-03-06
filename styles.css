@@ -1,0 +1,145 @@
+:root {
+  color-scheme: light;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(180deg, #f4f7fb, #f8f9ff);
+  color: #1d2533;
+}
+
+.app {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  gap: 16px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: 4px;
+  color: #4f5d7a;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid #dde3ef;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 25px rgba(20, 42, 89, 0.06);
+}
+
+.drop-zone {
+  border: 2px dashed #7c8eb5;
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.drop-zone.dragging {
+  border-color: #2f6bff;
+  background: #eff4ff;
+}
+
+button {
+  border: none;
+  background: #2f6bff;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background: #2558d5;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.preview-wrapper {
+  margin-top: 14px;
+}
+
+.preview-image {
+  width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  border: 1px solid #d6dced;
+  border-radius: 8px;
+  background: #f4f7fc;
+}
+
+.actions {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 3px solid #bfd0ff;
+  border-top-color: #2f6bff;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.status {
+  margin-top: 12px;
+  color: #406192;
+}
+
+.status.error {
+  color: #b9002b;
+}
+
+.output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.output-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+#resultText {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 260px;
+  border: 1px solid #d6dced;
+  border-radius: 8px;
+  padding: 12px;
+  resize: vertical;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.hidden {
+  display: none;
+}
