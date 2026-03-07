@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI OCR Scanner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <h1>AI OCR Scanner</h1>
+        <p class="subtitle">Upload an image to extract all visible text with Gemini Vision API.</p>
+      </header>
+
+      <section class="panel input-panel">
+        <div id="dropZone" class="drop-zone">
+          <p>Drag and drop an image here</p>
+          <span>or</span>
+          <button id="selectButton" type="button">Select Image</button>
+          <input id="fileInput" type="file" accept=".jpg,.jpeg,.png,.webp,.bmp" hidden />
+        </div>
+
+        <div class="preview-wrapper">
+          <h2>Image Preview</h2>
+          <img id="previewImage" class="preview-image hidden" alt="Selected image preview" />
+        </div>
+
+        <div class="actions">
+          <button id="extractButton" type="button" disabled>Extract Text</button>
+          <div id="spinner" class="spinner hidden" aria-label="Loading"></div>
+        </div>
+
+        <p id="statusText" class="status">Select or drop an image to begin.</p>
+      </section>
+
+      <section class="panel output-panel">
+        <div class="output-header">
+          <h2>Extracted Text</h2>
+          <div class="output-actions">
+            <button id="copyButton" type="button">Copy to Clipboard</button>
+            <button id="saveButton" type="button">Save as .txt</button>
+          </div>
+        </div>
+        <textarea id="resultText" placeholder="The OCR result will appear here..." spellcheck="false"></textarea>
+      </section>
+    </main>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>
