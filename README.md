@@ -8,7 +8,7 @@ Desktop OCR application for Windows built with **ElectronJS** that extracts text
 - File picker upload
 - Supported image formats: `JPG`, `JPEG`, `PNG`, `WEBP`, `BMP`
 - Image preview before OCR
-- OCR using Gemini API (`gemini-1.5-flash`)
+- OCR using Gemini API with model fallback (`gemini-1.5-flash-latest`, `gemini-1.5-flash`, `gemini-2.0-flash`)
 - Loading indicator during extraction
 - Copy extracted text to clipboard
 - Save extracted text to `.txt`
@@ -48,6 +48,8 @@ npm install
 
 ```env
 GEMINI_API_KEY=your_api_key_here
+# Optional: force a specific model
+GEMINI_MODEL=gemini-1.5-flash-latest
 ```
 
 You can copy from the template:
@@ -82,7 +84,8 @@ When you click **Extract Text**:
 4. Sends request to Gemini REST endpoint:
 
 ```txt
-https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent
+https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent
+(default model fallback order: gemini-1.5-flash-latest -> gemini-1.5-flash -> gemini-2.0-flash)
 ```
 
 5. Uses prompt:
@@ -146,6 +149,15 @@ The app sends this shape (simplified):
 ### Empty OCR response
 - Try a clearer image (better light, less blur, higher resolution).
 - Check API key validity and quota.
+
+
+### `404 model not found` when extracting text
+- This app automatically retries multiple Gemini model names.
+- Optionally force a working model in `.env`:
+  ```env
+  GEMINI_MODEL=gemini-1.5-flash-latest
+  ```
+- If your account/region does not expose a model, use another available Gemini model.
 
 ### Build issues on Windows
 - Install latest Node.js LTS.
