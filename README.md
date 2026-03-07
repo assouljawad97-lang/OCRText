@@ -159,6 +159,15 @@ The app sends this shape (simplified):
   ```
 - If your account/region does not expose a model, use another available Gemini model.
 
+### `429 quota/rate limit` when extracting text
+- Your API key/project has no remaining quota for the selected model.
+- Wait the suggested retry window, then try again.
+- In Google AI Studio / Google Cloud, verify billing and quota limits.
+- Optionally set a different model in `.env`:
+  ```env
+  GEMINI_MODEL=gemini-1.5-flash-latest
+  ```
+
 ### Build issues on Windows
 - Install latest Node.js LTS.
 - Clean install dependencies:

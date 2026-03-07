@@ -77,10 +77,20 @@ function parseGeminiText(responseData) {
 function formatAxiosError(error, attemptedModels) {
   const status = error?.response?.status;
   const apiMessage = error?.response?.data?.error?.message;
+  const retryAfterHeader = error?.response?.headers?.['retry-after'];
 
   if (status === 404) {
     return `Gemini model endpoint not found (404). Tried models: ${attemptedModels.join(', ')}. ` +
-      'Set GEMINI_MODEL in .env (example: GEMINI_MODEL=gemini-1.5-flash-latest or GEMINI_MODEL=gemini-2.0-flash).';
+      'Set GEMINI_MODEL in .env (example: GEMINI_MODEL=gemini-1.5-flash-latest).';
+  }
+
+  if (status === 429) {
+    const retryHint = retryAfterHeader
+      ? ` Retry after ~${retryAfterHeader} second(s).`
+      : ' Wait and retry, or use an API key/project with available quota.';
+
+    return `Gemini API quota/rate limit reached (429). Tried models: ${attemptedModels.join(', ')}.` +
+      `${retryHint} Check billing/quota in Google AI Studio and consider setting GEMINI_MODEL to a model available for your plan.`;
   }
 
   if (apiMessage) {
@@ -167,8 +177,10 @@ ipcMain.handle('extract-text-from-image', async (_, imagePath) => {
     } catch (error) {
       lastError = error;
 
-      // Retry on model-not-found, otherwise fail fast.
-      if (error?.response?.status !== 404) {
+      // Retry on model-not-found or temporary quota/rate/service conditions.
+      const status = error?.response?.status;
+      const shouldTryNextModel = status === 404 || status === 429 || status === 503;
+      if (!shouldTryNextModel) {
         break;
       }
     }
